@@ -4,7 +4,8 @@
 #8. 오른쪽 맨위 ...을 누르고 도움말을 누르고 크롬정보를 누르고 내 크롬정보를 확인한다. 9. 버전에 맞는 chromedriver.exe파일을 받은 후 selenium폴더에 드래그 앤 드롭한다.
 #9. Nef File 버튼을 누르고 google.py라는 파이썬 파일을 만든다. 10. 구글에 python selenium example를 검색하고 맨위의 예제를 컨트롤 c v 한다.
 
-
+#기존코드를 불러오기에 앞서
+#1. cd Scripts로 들어가서 activate를 입력하고 cd C:\python crolling2\selenium를 입력하고 python google.py로 실행한다.
 
 
 #<코드>
