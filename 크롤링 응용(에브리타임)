@@ -1,0 +1,85 @@
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from selenium import webdriver
+import os
+import time
+import string
+
+
+
+#아이디, 비번 치고 들어가는 중
+driver = webdriver.Chrome('chromedriver.exe')
+driver.implicitly_wait(3)
+driver.get('https://everytime.kr/login')
+#아이디와 비밀번호를 입력해주세요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!######################
+driver.find_element_by_name('userid').send_keys('')
+driver.find_element_by_name('password').send_keys('')
+driver.find_element_by_xpath('/html/body/div/form/p[3]/input').click()
+driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/div/h3/a').click()
+#비밀게시판에 들어옴
+
+
+
+
+#notices = soup.find_all("p",class_="medium") #이것도 사용가능
+
+#원하는 검색어를 입력해 주세요!!!!!!
+input_search1="여자"
+input_search2="번호"
+input_search3="벚꽃"
+
+#원하는 검색어를 입력해 주세요!!!!!!
+f = open("건호의 실행결과텍스트파일!!.txt", 'w', encoding="UTF-8")
+
+
+#자유게시판 크롤링
+driver.get('https://everytime.kr/389132')
+for i in range(0,20):
+    time.sleep(0.2) #매우 중요!! 이거 없으면 불러오는 중입니다... 라고 뜸!
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    notices = soup.select("a.article") 
+    for n in notices:
+        if input_search1 in n.get_text() or input_search2 in n.get_text() or input_search3  in n.get_text() :
+            data=n.get_text()
+            data=data.replace("익명","")
+            data="자유 "+data+"\n"
+            f.write(data)
+
+    driver.find_element_by_class_name("next").click()
+f.write("\n")
+
+
+#비밀게시판 크롤링
+driver.get('https://everytime.kr/258917')
+for i in range(0,5):
+    time.sleep(0.2) #매우 중요!! 이거 없으면 불러오는 중입니다... 라고 뜸!
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    notices = soup.select("a.article") 
+    for n in notices:
+        if input_search1 in n.get_text() or input_search2 in n.get_text() or input_search3 in n.get_text() :
+            data=n.get_text()
+            data=data.replace("익명","")
+            data="비밀 "+data+"\n"
+            f.write(data)
+    driver.find_element_by_class_name("next").click()
+f.write("\n")
+
+#이상형게시판 크롤링
+driver.get('https://everytime.kr/487455')
+for i in range(0,5):
+    time.sleep(0.2) #매우 중요!! 이거 없으면 불러오는 중입니다... 라고 뜸!
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    notices = soup.select("a.article") 
+    for n in notices:
+        if input_search1 in n.get_text() or input_search2 in n.get_text() or input_search3 in n.get_text() :
+            data=n.get_text()
+            data=data.replace("익명","")
+            data="이상형 "+data+"\n"
+            f.write(data)
+    driver.find_element_by_class_name("next").click()
+f.write("\n")
+
+f.close()
